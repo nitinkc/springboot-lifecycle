@@ -1,4 +1,4 @@
-package com.learn.spring.lifecycle;
+package com.learn.spring.app;
 
 import com.learn.spring.event.listener.*;
 import lombok.extern.slf4j.Slf4j;
@@ -6,13 +6,14 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication(scanBasePackages = {
         "com.learn.spring.components",
         "com.learn.spring.event.listener"
 })
 @Slf4j
-public class DemoApplication {
+public class SpringLifeCycleApplication {
 
     public static void main(String[] args) {
         //springAppRun(args);
@@ -20,16 +21,16 @@ public class DemoApplication {
     }
 
     private static void springAppRun(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(SpringLifeCycleApplication.class, args);
     }
 
     private static void customAppRun(String[] args) {
         // Add custom log before startup
         log.info("[LOG] ===== Application Starting =====");
 
-        SpringApplication app = new SpringApplication(DemoApplication.class);
+        SpringApplication app = new SpringApplication(SpringLifeCycleApplication.class);
 
-        // Add event listeners for logging application lifecycle
+        // Add event listeners for logging application app
         app.addListeners(new ApplicationStartingListener(),
                 //new ApplicationEnvironmentPreparedListener(),
                 new ApplicationPreparedListener(),
@@ -45,7 +46,7 @@ public class DemoApplication {
 
         app.setBannerMode(Banner.Mode.OFF); // Example of customizing the startup
 
-        app.run(args);
+        ConfigurableApplicationContext context = app.run(args);
+        log.info("[LOG] ApplicationContext in use: {}", context.getClass().getName());
     }
-
 }
