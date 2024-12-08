@@ -8,10 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 
-@SpringBootApplication(scanBasePackages = {
-        "com.learn.spring.components",
-        "com.learn.spring.event.listener"
-})
+@SpringBootApplication(
+    scanBasePackages = {
+      "com.learn.spring.components",
+      "com.learn.spring.event.listener",
+      "com.learn.spring.config",
+            "com.learn.spring.**"
+    })
 @Slf4j
 public class SpringLifeCycleApplication {
 
